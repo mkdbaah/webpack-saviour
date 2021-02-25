@@ -1,9 +1,14 @@
 const currentTask = process.env.npm_lifecycle_event
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 let config = {
   devtool: "source-map",
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -13,11 +18,13 @@ let config = {
       },
     ],
   },
+  plugins: [new MiniCssExtractPlugin()],
 }
 
-if (currentTask == "dev") {
+if (currentTask == "start") {
   config.devServer = {
     contentBase: "./dist",
+    hot: true,
   }
   config.mode = "development"
 }
