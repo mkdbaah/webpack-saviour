@@ -7,11 +7,11 @@ let config = {
   module: {
     rules: [
       {
-        test: /\.s?css$/i,
+        test: /\.(s[ac]|c)ss$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -20,6 +20,9 @@ let config = {
     ],
   },
   plugins: [new MiniCssExtractPlugin()],
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
 }
 
 if (currentTask == "start") {
